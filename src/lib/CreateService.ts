@@ -1,32 +1,34 @@
 import  mongoose from 'mongoose';
 
 interface IBaseService <IModel, IFields> {
-  list: (pageinate?: { page: number, limit: number }, condition?: any ) => Promise<IModel[]> | Promise<mongoose.PaginateResult<IModel>>;
+  list: (
+          pagination?: { page: number, limit: number }, condition?: any
+        ) => Promise<mongoose.PaginateResult<IModel> | IModel[]>;
   create: (data: IFields) => Promise<IModel>;
-  update: (cond: any, data: IFields) => Promise<IModel>;
-  delete: (cond: any) => Promise<IModel>;
+  update: (condition: any, data: IFields) => Promise<IModel>;
+  remove: (condition: any) => Promise<IModel>;
 }
 
-function CreateService<IModel extends mongoose.Document, IFields>
-(model: mongoose.Model<IModel> , methods?: string[]): IBaseService<IModel, IFields> {
-
+const CreateService = <IModel extends mongoose.Document, IFields>
+ (model: mongoose.Model<IModel>)
+ : IBaseService<IModel, IFields> => {
   const ServiceModel: mongoose.PaginateModel<IModel> = (model as any);
-
   return {
-      async list(pageinate, cond = {}) {
-          return pageinate ? await ServiceModel.paginate(cond) : await ServiceModel.find(cond);
+      async list(pagination, condition = {}) {
+          return pagination ? await ServiceModel.paginate(condition) : await ServiceModel.find(condition);
       },
       async create(data) {
          return await ServiceModel.create(data);
       },
-      async update(cond, data) {
-        const instance = await ServiceModel.findOne(cond);
+      async update(condition, data) {
+        const instance = await ServiceModel.findOne(condition);
         return await instance.update(data);
       },
-      async delete(cond) {
-        const instance = await ServiceModel.findOne(cond);
+      async remove(condition) {
+        const instance = await ServiceModel.findOne(condition);
         return await instance.remove();
       }
     };
-  }
+  };
+
 export default CreateService;
