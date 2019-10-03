@@ -5,6 +5,7 @@
       "paths": {
         "*": ["src/*"]
       },
+      "esModuleInterop": true,
       "allowJs": true,
       "target": "es2016",
       "module": "commonjs",

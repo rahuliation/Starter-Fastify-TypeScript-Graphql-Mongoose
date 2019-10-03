@@ -1,19 +1,19 @@
-import * as envSchema from 'env-schema';
+import envSchema from 'env-schema';
 
 const schema = {
   type: 'object',
   required: [ 'HOST', 'PORT', 'DB_URL' ],
   properties: {
     HOST: {
-      type: 'string',
+      type: 'string'
     },
     PORT: {
-        type: 'string',
+        type: 'string'
       },
     DB_URL: {
-        type: 'string',
-    },
+        type: 'string'
+    }
   }
-}
+};
 
 envSchema({ schema, dotenv: true });

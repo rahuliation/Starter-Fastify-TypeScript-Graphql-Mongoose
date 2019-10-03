@@ -1,9 +1,18 @@
-import { gql } from "apollo-server-fastify";
+import { gql } from 'apollo-server-fastify';
 
 const typeDefs = gql`
+ type Category {
+    "Category of Product"
+    name: String
+    parent: String
+  }
   type Query {
-    "A simple type for getting started!"
-    hello: String
+    "Get Category List "
+    getCategories: [Category]
+  }
+  type Mutation {
+    "Create Category List "
+    createCategory(name: String): Category
   }
 `;
 
