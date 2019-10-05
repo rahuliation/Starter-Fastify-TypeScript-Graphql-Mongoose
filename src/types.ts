@@ -3,6 +3,7 @@ import { gql } from 'apollo-server-fastify';
 const typeDefs = gql`
  type Category {
     "Category of Product"
+    id: ID!
     name: String
     parent: String
   }

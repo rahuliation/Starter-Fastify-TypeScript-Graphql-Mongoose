@@ -15,7 +15,9 @@ const CreateService = <IModel extends mongoose.Document, IFields>
   const ServiceModel: mongoose.PaginateModel<IModel> = (model as any);
   return {
       async list(pagination, condition = {}) {
-          return pagination ? await ServiceModel.paginate(condition) : await ServiceModel.find(condition);
+          return pagination ? await ServiceModel.paginate(condition, {
+            ...pagination
+          }) : await ServiceModel.find(condition);
       },
       async create(data) {
          return await ServiceModel.create(data);

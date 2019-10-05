@@ -2,25 +2,32 @@ import fastify from 'fastify';
 import * as cors from 'cors';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { ApolloServer } from 'apollo-server-fastify';
-import typeDefs from './src/types';
-import resolvers from './src/resolvers';
-import './src/lib/Config';
-import ConnectDB from './src/lib/ConnectDB';
+import typeDefs from './types';
+import resolvers from './resolvers';
+import './lib/Config';
+import ConnectDB from './lib/ConnectDB';
+import path from 'path'
 
 const app: fastify.FastifyInstance<
   Server,
   IncomingMessage,
   ServerResponse
 > = fastify({
-    logger: {
-      prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
-    }
-  });
+  logger: {
+    prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
+  }
+});
+
+
+app.register(require('fastify-static'), {
+  root: path.join(__dirname, 'static'),
+  prefix: '/static/', 
+})
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers
-  });
+  typeDefs,
+  resolvers
+});
 
 const start = async () => {
   ConnectDB(async (dbURL) => {
