@@ -18,7 +18,7 @@ const app: fastify.FastifyInstance<
   }
 });
 
-
+console.log(path.join(__dirname, 'static'));
 app.register(require('fastify-static'), {
   root: path.join(__dirname, 'static'),
   prefix: '/static/', 
