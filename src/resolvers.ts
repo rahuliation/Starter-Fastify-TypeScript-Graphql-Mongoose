@@ -8,7 +8,7 @@ export default {
     }
   },
   Mutation: {
-    createCategory: async  (parent, args, context, info) => {
+    createCategory: async  (parent:any, args: any, context: any, info: any) => {
       const { name } = args;
       const categories = await CategoryService.create({ name });
       return categories;

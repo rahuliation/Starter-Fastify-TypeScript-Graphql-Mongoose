@@ -27,7 +27,7 @@ const CategorySchema = new Schema({
     }
 },
     {
-        timestamps: true
+        timestamps: false
     });
 
 export default mongoose.model<ICategoryModel>('category', CategorySchema, 'categories', true);

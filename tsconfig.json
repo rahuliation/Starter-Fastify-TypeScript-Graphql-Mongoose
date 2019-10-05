@@ -5,12 +5,14 @@
       "paths": {
         "*": ["src/*"]
       },
+      "rootDir": ".",
       "esModuleInterop": true,
       "allowJs": true,
       "target": "es2016",
       "module": "commonjs",
       "moduleResolution": "node",
       "sourceMap": true,
+      "removeComments": true,
       "outDir": "./dist"
     },
     "include": ["./src/**/*.ts"],

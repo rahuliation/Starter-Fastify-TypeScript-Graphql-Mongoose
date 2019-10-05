@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/index.js",
-    "compile": "ts-node build.ts && tsc",
-    "dev": "nodemon ./src/index.ts"
+    "run:dev": "NODE_ENV=development nodemon ./dist/index.js",
+    "start:dev": "NODE_ENV=development webpack",
+    "build": "webpack",
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -35,9 +36,13 @@
     "@types/shelljs": "^0.8.5",
     "nodemon": "^1.19.3",
     "shelljs": "^0.8.3",
+    "ts-loader": "^6.2.0",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-node-externals": "^1.7.2"
   }
 }
