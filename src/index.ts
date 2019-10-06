@@ -5,7 +5,7 @@ import { ApolloServer } from 'apollo-server-fastify';
 import typeDefs from './types';
 import resolvers from './resolvers';
 import './lib/Config';
-import ConnectDB from 'lib/ConnectDB';
+import ConnectDB from './lib/ConnectDB';
 import path from 'path';
 
 const app: fastify.FastifyInstance<
@@ -21,7 +21,7 @@ const app: fastify.FastifyInstance<
 console.log(path.join(__dirname, 'static'));
 app.register(require('fastify-static'), {
   root: path.join(__dirname, '../static'),
-  prefix: '/public/'
+  prefix: '/static/'
 });
 
 const server = new ApolloServer({

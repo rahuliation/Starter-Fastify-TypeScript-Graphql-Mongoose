@@ -2,6 +2,7 @@ const path = require('path');
 const config = require('./tsconfig.json');
 const nodeExternals = require('webpack-node-externals');
 const WebpackShellPlugin = require('webpack-shell-plugin-next');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const outDir = config.compilerOptions.outDir;
 const {
@@ -46,6 +47,9 @@ module.exports = {
   },
   context: path.join(__dirname, '.'),
   plugins: [
+    new CopyPlugin([
+      { from: 'static', to: 'static' },
+    ]),
     new WebpackShellPlugin({
         onBuildEnd:{
           scripts: ['npm run run:dev'],
