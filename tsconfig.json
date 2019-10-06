@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-      "baseUrl": ".",
+      "baseUrl": "./src",
       "lib": ["es2016"],
       "paths": {
-        "*": ["src/*"]
+        "*": ["*"]
       },
       "esModuleInterop": true,
       "allowJs": true,
@@ -12,6 +12,9 @@
       "moduleResolution": "node",
       "sourceMap": true,
       "removeComments": true,
+      "rootDirs": [
+        "src"
+      ],
       "outDir": "./dist"
     },
     "include": ["./src/**/*.ts"],

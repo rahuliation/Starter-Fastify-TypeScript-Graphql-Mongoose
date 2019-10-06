@@ -1,8 +1,6 @@
 const path = require('path');
 const config = require('./tsconfig.json');
 const nodeExternals = require('webpack-node-externals');
-const shell = require('shelljs');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin-next');
 
 const outDir = config.compilerOptions.outDir;
@@ -14,6 +12,7 @@ module.exports = {
   entry: './src/index.ts',
   mode: NODE_ENV,
   watch: NODE_ENV === 'development',
+  devtool: false,
   module: {
     rules: [
         {
@@ -30,7 +29,12 @@ module.exports = {
     ]
   },
   node: {
-    __dirname: false
+    console: false,
+    global: false,
+    process: false,
+    Buffer: false,
+    __filename: false,
+    __dirname: false,
   },
   target: 'node',
   output: {
@@ -42,9 +46,6 @@ module.exports = {
   },
   context: path.join(__dirname, '.'),
   plugins: [
-    new CopyWebpackPlugin([
-            { from: 'static', to: 'static' }
-    ]),
     new WebpackShellPlugin({
         onBuildEnd:{
           scripts: ['npm run run:dev'],
