@@ -1,27 +1,23 @@
 import CategoryService from './service/categories/Category.service';
+import { arch } from 'os';
 
 export default {
   Query: {
     getCategories: async  () => {
-      const categories = await CategoryService.list();
-      return categories;
+      const ctx: any = await CategoryService.list({});
+      return ctx.result;
     }
   },
   Mutation: {
     createCategory: async  (parent, args, context, info) => {
       const { name } = args;
-      const categories = await CategoryService.create({ name });
+      const ctx: any = await CategoryService.create({ data: { name } });
+      return ctx.result;
+    },
+    updateCategory: async  (parent, args, context, info) => {
+      const { name } = args;
+      const categories = await CategoryService.remove({ query: { _id: args.id },  data: { name } });
       return categories;
     }
-    // updateCategory: async  (parent, args, context, info) => {
-    //   const { name } = args;
-    //   const categories = await CategoryService.remove({ name });
-    //   return categories;
-    // },
-    // deleteCategory: async  (parent, args, context, info) => {
-    //   const { name } = args;
-    //   const categories = await CategoryService.create({ name });
-    //   return categories;
-    // }
   }
 };

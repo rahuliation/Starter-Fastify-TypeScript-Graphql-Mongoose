@@ -13,14 +13,14 @@ const app: fastify.FastifyInstance<
   IncomingMessage,
   ServerResponse
 > = fastify({
-  logger: {
-    prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
-  }
+  // logger: {
+  //   prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
+  // }
 });
 
 
 app.register(require('fastify-static'), {
-  root: path.join(__dirname, 'static'),
+  root: path.join(__dirname, '../static'),
   prefix: '/static/', 
 })
 

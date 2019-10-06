@@ -14,6 +14,7 @@ const typeDefs = gql`
   type Mutation {
     "Create Category List "
     createCategory(name: String): Category
+    updateCategory(id: ID!, name: String): Category
   }
 `;
 
