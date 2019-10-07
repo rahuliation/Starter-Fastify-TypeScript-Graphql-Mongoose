@@ -6,16 +6,16 @@ import typeDefs from './types';
 import resolvers from './resolvers';
 import './lib/Config';
 import ConnectDB from './lib/ConnectDB';
-import path from 'path'
+import path from 'path';
 
 const app: fastify.FastifyInstance<
   Server,
   IncomingMessage,
   ServerResponse
 > = fastify({
-  // logger: {
-  //   prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
-  // }
+  logger: {
+    prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
+  }
 });
 
 
@@ -35,7 +35,6 @@ const start = async () => {
     try {
       app.register(server.createHandler());
       await app.listen(3000, '0.0.0.0');
-
     } catch (err) {
       app.log.error(err);
       process.exit(1);
