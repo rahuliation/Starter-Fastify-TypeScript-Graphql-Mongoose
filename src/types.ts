@@ -1,7 +1,16 @@
+import { CategoryTypeDef } from './service/categories/Category.resolver';
 import { gql } from 'apollo-server-fastify';
 
-const typeDefs = gql`
-
+const TypeDef = gql`
+  type Query {
+    _empty: String
+  }
+  type Mutation {
+    _empty: String
+  }
 `;
 
-export default typeDefs;
+export default [
+    TypeDef,
+    CategoryTypeDef
+];
