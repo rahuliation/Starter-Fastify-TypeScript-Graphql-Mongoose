@@ -1,6 +1,6 @@
 
 
-const hooks = (ServiceModel) => ({
+const Hooks = <T>(ServiceModel: T) => ({
     before: {
         list: [],
         create: [],
@@ -10,9 +10,11 @@ const hooks = (ServiceModel) => ({
         create: []
     },
     error: {
-        list: [],
+        list: [function (ctx) {
+            return ctx
+        }],
         create: []
     }
 });
 
-export default hooks;
+export default Hooks;

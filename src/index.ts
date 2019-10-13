@@ -2,10 +2,10 @@ import fastify from 'fastify';
 import * as cors from 'cors';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { ApolloServer } from 'apollo-server-fastify';
-import typeDefs from './types';
-import resolvers from './resolvers';
 import './lib/Config';
 import ConnectDB from './lib/ConnectDB';
+import typeDefs from './types';
+import resolvers from './resolvers';
 import path from 'path';
 
 const app: fastify.FastifyInstance<
@@ -13,9 +13,9 @@ const app: fastify.FastifyInstance<
   IncomingMessage,
   ServerResponse
 > = fastify({
-  logger: {
-    prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
-  }
+  // logger: {
+  //   prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
+  // }
 });
 
 

@@ -21,7 +21,6 @@ interface IBaseService<IModel, IFields> {
   update: (context: IContext) => Promise<IContext<IModel>>;
   remove: (context: IContext) => Promise<IContext<IModel>>;
   [name: string]: (context: IContext) => any ;
-
 }
 
 const CreateService = <IModel extends mongoose.Document, IFields>
@@ -31,9 +30,9 @@ const CreateService = <IModel extends mongoose.Document, IFields>
 
   const Service = _.merge({
     async list(context: IContext) {
-      const { options: { pagination }, query } = context;
-      const result=  pagination ? await ServiceModel.paginate(query, {
-        ...pagination
+      const { options, query = {} } = context;
+      const result=  options && options.pagination ? await ServiceModel.paginate(query, {
+        ...options.pagination
       }) : await ServiceModel.find(query);
       return {...context, result};
     },
@@ -65,7 +64,8 @@ const CreateService = <IModel extends mongoose.Document, IFields>
         if (hooks.before[serviceFunction.name]) {
           ctx = hooks.before[serviceFunction.name]
             .reduce((state, fun) => {
-              return fun(state);
+              const newState = fun(state);
+              return newState ? newState : state;
             }, ctx);
         }
         ctx = await serviceFunction(ctx);
@@ -73,7 +73,8 @@ const CreateService = <IModel extends mongoose.Document, IFields>
         if (hooks.after[serviceFunction.name]) {
           ctx = hooks.after[serviceFunction.name]
             .reduce((state, fun) => {
-              return fun(state);
+              const newState = fun(state);
+              return newState ? newState : state;            
             }, ctx);
         }
         return ctx
@@ -81,7 +82,8 @@ const CreateService = <IModel extends mongoose.Document, IFields>
         if (hooks.error[serviceFunction.name]) {
           ctx = hooks.error[serviceFunction.name]
             .reduce((state, fun) => {
-              return fun(state);
+              const newState = fun(state);
+              return newState ? newState : state;
             }, { ...ctx , error: error });
         }
         return ctx
