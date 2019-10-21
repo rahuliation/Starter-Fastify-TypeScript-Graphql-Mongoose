@@ -34,7 +34,7 @@ const start = async () => {
     app.log.info(`Mongoose Connected at ${dbURL}`);
     try {
       app.register(server.createHandler());
-      await app.listen(3000, '0.0.0.0');
+      await app.listen(4000, '0.0.0.0');
     } catch (err) {
       app.log.error(err);
       process.exit(1);

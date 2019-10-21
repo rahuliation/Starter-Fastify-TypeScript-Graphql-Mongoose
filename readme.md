@@ -1,0 +1,1 @@
+#Fastify Starter with Graphql Typescript and 

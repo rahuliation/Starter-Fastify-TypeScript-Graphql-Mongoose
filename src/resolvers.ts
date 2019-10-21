@@ -1,7 +1,7 @@
 
 import _ from 'lodash';
-import { CategoryResolver } from './service/categories/Category.resolver';
+import  UserResolver from './service/users/User.resolver';
 
 const resolver = {}
 
-export default _.merge(resolver, CategoryResolver )
+export default _.merge(resolver, UserResolver )

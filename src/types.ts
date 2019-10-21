@@ -1,4 +1,4 @@
-import { CategoryTypeDef } from './service/categories/Category.resolver';
+import UserTypeDef from './service/users/User.typedef';
 import { gql } from 'apollo-server-fastify';
 
 const TypeDef = gql`
@@ -6,13 +6,8 @@ const TypeDef = gql`
     page: Int!
     limit: Int!
   }
-  input Options {
-    pagination: Pagination
-  }
-
 
  interface PaginationModel {
-  docs: [Model]
   totalDocs: Int,
   limit: Int,
   hasPrevPage: Boolean,
@@ -23,6 +18,7 @@ const TypeDef = gql`
   prevPage: Int,
   nextPage: Int
  }
+ 
   type Query {
     _empty: String
   }
@@ -33,5 +29,5 @@ const TypeDef = gql`
 
 export default [
   TypeDef,
-  CategoryTypeDef
+  UserTypeDef
 ];
