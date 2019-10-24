@@ -1,21 +1,24 @@
+import "reflect-metadata";
 import fastify from 'fastify';
 import * as cors from 'cors';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { ApolloServer } from 'apollo-server-fastify';
 import './lib/Config';
 import ConnectDB from './lib/ConnectDB';
-import typeDefs from './types';
-import resolvers from './resolvers';
 import path from 'path';
+import { buildSchema } from "type-graphql";
+import { ObjectIdScalar } from "./object-id.scalar";
+import { ObjectId } from "mongodb";
+import { TypegooseMiddleware } from "./typegoose-middleware";
 
 const app: fastify.FastifyInstance<
   Server,
   IncomingMessage,
   ServerResponse
 > = fastify({
-  // logger: {
-  //   prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
-  // }
+  logger: {
+    prettyPrint: { translateTime: 'yyyy-mm-dd HH:MM:ss' }
+  }
 });
 
 
@@ -24,15 +27,24 @@ app.register(require('fastify-static'), {
   prefix: '/static/', 
 })
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
-});
+
 
 const start = async () => {
   ConnectDB(async (dbURL) => {
     app.log.info(`Mongoose Connected at ${dbURL}`);
     try {
+
+      const schema = await buildSchema({
+        resolvers: [__dirname + "/**/*.resolver.ts"],
+        emitSchemaFile: path.resolve(__dirname, "schema.gql"),
+        globalMiddlewares: [TypegooseMiddleware],
+        scalarsMap: [{ type: ObjectId, scalar: ObjectIdScalar }],
+      });
+
+      const server = new ApolloServer({
+        schema,
+        playground: true,
+      });
       app.register(server.createHandler());
       await app.listen(4000, '0.0.0.0');
     } catch (err) {

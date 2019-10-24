@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
       "baseUrl": ".",
-      "lib": ["es2016"],
+      "lib": ["es2016", "esnext.asynciterable"],
       "paths": {
         "*": ["src/*"]
       },
@@ -11,6 +11,8 @@
       "module": "commonjs",
       "moduleResolution": "node",
       "sourceMap": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
       "outDir": "./dist"
     },
     "include": ["./src/**/*.ts"],

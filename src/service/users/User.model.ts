@@ -1,27 +1,22 @@
-import mongoose from 'mongoose';
+import { prop as Property, getModelForClass, modelOptions } from "@typegoose/typegoose";
+import { ObjectId } from "mongodb";
+import { Field, ObjectType } from 'type-graphql' ;
 
-const { Schema } = mongoose;
+@ObjectType()
+@modelOptions({ schemaOptions: { timestamps: true } })
+export class User {
+  @Field()
+  readonly _id: ObjectId;
 
-/**
- * Only Pure Field Available
- *
- * @export
- * @interface IUserFields
- */
-export interface IUserFields  {
-    name: string;
+  @Field()
+  @Property({ required: true })
+  email: string;
+
+  @Field({ nullable: true })
+  @Property()
+  name?: string;
+
+  @Property({ required: true })
+  password: string;
 }
-
-export interface IUserModel extends mongoose.Document, IUserFields {}
-
-const UserSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    }
-},
-    {
-        timestamps: true
-    });
-
-export default mongoose.model<IUserModel>('user', UserSchema, 'users', true);
+export const UserModel = getModelForClass(User); // UserModel is a regular Mongoose Model with correct types

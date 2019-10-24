@@ -10,7 +10,7 @@ const UserTypeDef = gql`
     name: String
   }
 
-  type UserPaginate implements PaginationModel {
+  type UserPaginate {
     docs: [UserModel]
     totalDocs: Int
     limit: Int
@@ -22,14 +22,8 @@ const UserTypeDef = gql`
     prevPage: Int
     nextPage: Int
   }
-
   extend type Query {
-    users(options: Options): UserPaginate
-  }
-
-  extend type Mutation {
-    createusers(data: UserInput): UserModel
-    updateusers(id: String, data: UserInput): UserModel
+    users(pagination: Pagination): UserPaginate
   }
 `;
 

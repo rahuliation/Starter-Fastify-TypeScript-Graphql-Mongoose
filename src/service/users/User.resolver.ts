@@ -1,6 +1,16 @@
-import UserModel, { IUserModel, IUserFields } from './User.model'
-import getDefaultResolver from '../../lib/getDefaultResolver'
+import { Resolver, FieldResolver, Root, Query, Mutation, Arg } from "type-graphql";
+import { User, UserModel } from "./User.model";
 
-const UserResolver = getDefaultResolver<IUserModel, IUserFields>(UserModel);
-
-export default UserResolver;
+@Resolver()
+export class UserResolver {
+  @Query(returns => [User])
+  async users() {
+    return await UserModel.find({});
+  }
+  @Mutation(returns => User)
+  async createUsers(@Arg("name", { nullable: false }) title?: string,) {
+    return await UserModel.create({
+      name: 'rahul'
+    } as User);
+  }
+}
