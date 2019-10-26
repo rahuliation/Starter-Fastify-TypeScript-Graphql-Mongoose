@@ -1,4 +1,11 @@
-{
+{ 
+  "defaultSeverity": "error",
+  "linterOptions": {
+    "exclude": [
+        "node_modules"
+    ]
+  },
+  "extends": ["tslint-config-prettier"],
     "rules": {
       "class-name": true,
       "comment-format": [
@@ -10,6 +17,7 @@
         "spaces",
         2
       ],
+      "no-unused-variable": true,
       "no-duplicate-variable": true,
       "no-eval": true,
       "no-internal-module": true,
@@ -65,7 +73,7 @@
         "check-type"
       ],
       "jsdoc-format": true,
-      "no-consecutive-blank-lines": true,
+      "no-consecutive-blank-lines": [true, 1],
       "one-variable-per-declaration": [
         true,
         "ignore-for-loop"

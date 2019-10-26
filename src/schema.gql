@@ -3,19 +3,26 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Admin {
+  _id: ObjectId!
+  email: String!
+  name: String!
+}
+
+input AdminInput {
+  name: String!
+  password: String!
+  email: String!
+}
+
 type Mutation {
-  createUsers(name: String!): User!
+  createAdmins(data: AdminInput): Admin!
 }
 
 """Mongo object id scalar type"""
 scalar ObjectId
 
 type Query {
-  users: [User!]!
-}
-
-type User {
-  _id: ObjectId!
-  email: String!
-  name: String
+  admins: [Admin!]!
+  auth(email: String!, password: String!): String!
 }
