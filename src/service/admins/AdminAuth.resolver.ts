@@ -1,4 +1,4 @@
-import { IContext } from './../../index';
+import { IContext } from './../../makeContext';
 import { AdminAuthArg } from './Admin.input';
 import { Resolver, Query, Arg, Args, Info, Ctx } from 'type-graphql';
 import { Admin, AdminModel } from './Admin.model';
