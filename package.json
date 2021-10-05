@@ -26,7 +26,7 @@
     "fastify-jwt": "^1.1.0",
     "fastify-mongoose": "^0.2.1",
     "fastify-plugin": "^1.6.0",
-    "fastify-static": "^2.5.0",
+    "fastify-static": "^4.2.4",
     "graphql": "^14.5.8",
     "lodash": "^4.17.15",
     "mongoose": "^5.7.3",
